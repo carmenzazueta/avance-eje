@@ -1,3 +1,6 @@
+let select: game.LedSprite = null
+let led2: game.LedSprite = null
+let tiempo = 0
 input.onButtonPressed(Button.A, function () {
     select.move(-1)
 })
@@ -10,12 +13,26 @@ input.onButtonPressed(Button.B, function () {
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     select.move(1)
 })
-let select: game.LedSprite = null
-let led2 = game.createSprite(randint(1, 5), randint(1, 5))
-basic.pause(2000)
 basic.forever(function () {
-    while (input.isGesture(Gesture.LogoUp)) {
-        led2.change(LedSpriteProperty.Y, randint(1, 5))
-        led2.change(LedSpriteProperty.X, randint(1, 5))
+    led2 = game.createSprite(randint(1, 5), randint(1, 5))
+    basic.pause(200)
+    led2.delete()
+    basic.clearScreen()
+    tiempo = 200
+    for (let index = 0; index < 4; index++) {
+        basic.showLeds(`
+            # # # # #
+            # # # # #
+            # # # # #
+            # # # # #
+            # # # # #
+            `)
+        for (let x = 0; x <= 4; x++) {
+            for (let y = 0; y <= 4; y++) {
+                led.plot(x, y)
+                basic.pause(tiempo)
+                led.unplot(x, y)
+            }
+        }
     }
 })
